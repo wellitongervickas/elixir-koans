@@ -5,7 +5,7 @@ defmodule Agents do
 
   koan "Agents maintain state, so you can ask them about it" do
     {:ok, pid} = Agent.start_link(fn -> "Hi there" end)
-    assert Agent.get(pid, & &1) == ___
+    assert Agent.get(pid, & &1) == "Hi there"
   end
 
   koan "Agents may also be named so that you don't have to keep the pid around" do
