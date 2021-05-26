@@ -10,7 +10,7 @@ defmodule Agents do
 
   koan "Agents may also be named so that you don't have to keep the pid around" do
     Agent.start_link(fn -> "Why hello" end, name: AgentSmith)
-    assert Agent.get(AgentSmith, & &1) == ___
+    assert Agent.get(AgentSmith, & &1) == "Why hello"
   end
 
   koan "Update to update the state" do
@@ -20,7 +20,7 @@ defmodule Agents do
       String.upcase(old)
     end)
 
-    assert Agent.get(__MODULE__, & &1) == ___
+    assert Agent.get(__MODULE__, & &1) == "HI THERE"
   end
 
   koan "Use get_and_update when you need to read and change a value in one go" do
@@ -31,8 +31,8 @@ defmodule Agents do
         {old, ["Bread" | old]}
       end)
 
-    assert old_list == ___
-    assert Agent.get(__MODULE__, & &1) == ___
+    assert old_list == ["Milk"]
+    assert Agent.get(__MODULE__, & &1) == ["Bread", "Milk"]
   end
 
   koan "Somebody has to switch off the light at the end of the day" do
@@ -40,6 +40,6 @@ defmodule Agents do
 
     Agent.stop(__MODULE__)
 
-    assert Process.alive?(pid) == ___
+    assert Process.alive?(pid) == false
   end
 end
